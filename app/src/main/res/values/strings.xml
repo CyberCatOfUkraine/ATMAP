@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Labka</string>
+    <string name="ButtonName">Жабстенно кнопка</string>
+    <string name="RadioButtonName">Жабстенно радіо кнопка</string>
+    <string name="EditTextName">Жабственно текстбокс</string>
+    <string name="CheckBoxName">Жабственно чекбокс</string>
+</resources>
