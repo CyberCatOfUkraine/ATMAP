@@ -1,7 +1,23 @@
 <resources>
     <string name="app_name">Labka</string>
-    <string name="ButtonName">Жабстенно кнопка</string>
-    <string name="RadioButtonName">Жабстенно радіо кнопка</string>
-    <string name="EditTextName">Жабственно текстбокс</string>
-    <string name="CheckBoxName">Жабственно чекбокс</string>
+    <string name="game_rule">Чи співпадає названня кольору з текстом ?</string>
+    <string name="text_yes">Так</string>
+    <string name="text_no">Ні</string>
+
+    <string name="color_Red">Червоний</string>
+    <string name="color_Orange">Оранжевий</string>
+    <string name="color_Yellow">Жовтий</string>
+    <string name="color_Green">Зелений</string>
+    <string name="color_Blue">Синій</string>
+    <string name="color_Violet">Фіолетовий</string>
+    <string name="color_Black">Чорний</string>
+    <string name="start_color_Black">Чорний</string>
+    <string name="you_won">Ви виграли</string>
+    <string name="you_lose">Ви програли</string>
+    <string name="start">Почати</string>
+    <string name="stop">Зупинити</string>
+    <string name="restart">Почати заново</string>
+    <string name="correct_answer_number">Правильних відповідей: </string>
+    <string name="time_left">Часу залишилося:</string>
+    <string name="seconds">с.</string>
 </resources>
