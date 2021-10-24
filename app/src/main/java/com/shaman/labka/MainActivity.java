@@ -12,29 +12,33 @@
 * */
 package com.shaman.labka;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-    private final ColorWorker _worker;
-    private TextView _questTextView;
-    private TextView _correctAnswerTextView;
-    private TextView _timeLeftTextView;
-    private Tuple<Integer, Integer> _currentColor;
-    private State _gameState;
+    private final ColorWorker _worker;              ///Доступ до списку кольорів та його ініціалізація
+    private TextView _questTextView;                ///Отримує поточний кольор та його назву
+    private TextView _correctAnswerTextView;        ///Отримує кількість правильних відповідей
+    private TextView _timeLeftTextView;             ///Отримує час що лишився
+    private Tuple<Integer, Integer> _currentColor;  ///Поточний кольор та назва кольору
+    private State _gameState;                       ///Параметр стану програми
 
-    boolean _gameStarted;
-    short _rightAnswerNumber;
+    boolean _gameStarted;                           ///Гра почата
+    short _rightAnswerNumber;                       ///Правильна кількість відповідей
 
+    private Timer _mTimer;                          ///Таймер
+    private MyTimerTask mMyTimerTask;               ///Завдання для таймеру
+    private short _timeLeft;                        ///Лічильник кількості часу що лишився
+    private  int _countOfAttempt;                   ///Лічильник кількості спроб
     public MainActivity() {
         _worker = new ColorWorker();
         _currentColor = _worker.GetCurrentColor();
@@ -73,23 +77,37 @@ public class MainActivity extends AppCompatActivity {
                     //region Ініціалізація початковими значеннями
                     _rightAnswerNumber=0;
                     _correctAnswerTextView.setText(String.valueOf(_rightAnswerNumber));
+
+                    _countOfAttempt=0;
                     //endregion
 
+                    //region Ініціалізація таймеру
+                    if (_mTimer != null) {
+                        _mTimer.cancel();
+                    }
+
+                    // re-schedule timer here
+                    // otherwise, IllegalStateException of
+                    // "TimerTask is scheduled already"
+                    // will be thrown
+                    _mTimer = new Timer();
+                    mMyTimerTask = new MyTimerTask();
+                    _timeLeft=60;
+                    _mTimer.schedule(mMyTimerTask, 1000, 1000);
+
+
+                    //endregion
                     _gameState = State.Stopped;
                     ssr_btn.setText(getString(R.string.stop));
-
-                    ShowToast("1");
                     break;
                 case Stopped:///Зупинка
                     _gameState = State.Restarted;
                     ssr_btn.setText(getString(R.string.restart));
-                    ShowToast("2");
                     _gameStarted=false;
                     break;
                 case Restarted:///Перезапуск, скидання лічильника
                     _gameState = State.Started;
                     ssr_btn.setText(getString(R.string.start));
-                    ShowToast("3");
                     break;
             }
 
@@ -119,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void UpdateAnswerTextView(boolean increase) {
         if (increase)
             _rightAnswerNumber++;
@@ -130,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     ///Оновляє кольор і його назву та зберігає в змінній поточного кольору
     private void UpdateColorAndColorName(Tuple<Integer, Integer> color) {
         if (_gameStarted) {
+            _countOfAttempt++;
             _currentColor = color;
             _questTextView.setText(getResources().getString(_currentColor.colorNameID));
             _questTextView.setTextColor(getResources().getColor(_currentColor.colorID));
@@ -140,32 +158,29 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    ///сюда повісить початкові повідомленнЯ
-    private void ShowToastLong(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
-    }
-
     private Tuple<Integer, Integer> ReturnRandomizeColor() {
         Integer color = _worker.getKeyAt(new Random().nextInt(_worker.size()));
         Integer colorName = _worker.getValueByKey(_worker.getKeyAt(new Random().nextInt(_worker.size())));
         return new Tuple<>(color, colorName);
     }
 
-    ///Це таймер, неперевірений
-    public void Counter(MainActivity activity) {
-        Timer timer = new Timer();
+    class MyTimerTask extends TimerTask {
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            int i = 60;
+        @Override
+        public void run() {
+            runOnUiThread(() -> {
 
-            public void run() {
-                i--;
-
-                if (i < 0) {
-                    timer.cancel();
-                    activity.ShowToast("");
+                _timeLeft--;
+                if (_timeLeft<0)
+                    return;
+                if (_timeLeft==0) {
+                    ShowToast("Час вийшов, правильних відповідей: " + _rightAnswerNumber+" з "+_countOfAttempt);
+                    findViewById(R.id.btn_start_stop_reset).performClick();
                 }
-            }
-        }, 0, 1000);
-    }
+
+                String s =getResources().getString(R.string.time_left)+_timeLeft;
+                _timeLeftTextView.setText(s);
+            });
+        }
+}
 }

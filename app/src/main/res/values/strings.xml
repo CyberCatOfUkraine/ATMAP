@@ -18,6 +18,6 @@
     <string name="stop">Зупинити</string>
     <string name="restart">Почати заново</string>
     <string name="correct_answer_number">Правильних відповідей: </string>
-    <string name="time_left">Часу залишилося:</string>
+    <string name="time_left">Часу залишилося: </string>
     <string name="seconds">с.</string>
 </resources>
