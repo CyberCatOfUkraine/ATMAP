@@ -169,18 +169,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             runOnUiThread(() -> {
+                if (_gameStarted){
+                    _timeLeft--;
+                    if (_timeLeft<0)
+                        return;
+                    if (_timeLeft==0) {
+                        _correctAnswerTextView.setText(String.format("%s %s %s %s", getString(R.string.correct_answer_number), _rightAnswerNumber," з ",_countOfAttempt));
+                        ShowToast("Час вийшов, правильних відповідей: " + _rightAnswerNumber+" з "+_countOfAttempt);
+                        findViewById(R.id.btn_start_stop_reset).performClick();
+                    }
 
-                _timeLeft--;
-                if (_timeLeft<0)
-                    return;
-                if (_timeLeft==0) {
-                    _correctAnswerTextView.setText(String.format("%s %s %s %s", getString(R.string.correct_answer_number), _rightAnswerNumber," з ",_countOfAttempt));
-                    ShowToast("Час вийшов, правильних відповідей: " + _rightAnswerNumber+" з "+_countOfAttempt);
-                    findViewById(R.id.btn_start_stop_reset).performClick();
+                    String s =getResources().getString(R.string.time_left)+_timeLeft;
+                    _timeLeftTextView.setText(s);
+                }else {
+                    _timeLeftTextView.setText(getResources().getString(R.string.time_left));
                 }
 
-                String s =getResources().getString(R.string.time_left)+_timeLeft;
-                _timeLeftTextView.setText(s);
             });
         }
 }
