@@ -15,6 +15,7 @@ package com.shaman.labka;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private MyTimerTask mMyTimerTask;               ///Завдання для таймеру
     private short _timeLeft;                        ///Лічильник кількості часу що лишився
     private  int _countOfAttempt;                   ///Лічильник кількості спроб
+
+    //region LR5-6 додаткові налаштування
+    private boolean show_settings=true;
+    private RadioGroup settingsRadioGroup;
+    //endregion
     public MainActivity() {
         _worker = new ColorWorker();
         _currentColor = _worker.GetCurrentColor();
@@ -57,6 +63,25 @@ public class MainActivity extends AppCompatActivity {
         Button ssr_btn = findViewById(R.id.btn_start_stop_reset);
         Button btn_yes = findViewById(R.id.btn_yes);
         Button btn_no = findViewById(R.id.btn_no);
+
+
+        //region LR5-6 додаткові налаштування
+        Button settings_visibility_CheckBtn=findViewById(R.id.settings_visibility_checkBox);
+        settings_visibility_CheckBtn.setOnClickListener(view -> {
+            show_settings=!show_settings;
+
+            if (show_settings){
+                findViewById(R.id.settings_radioGroup).setVisibility(View.VISIBLE);
+                findViewById(R.id.settings_chet_on_toggleButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.settings_spinner).setVisibility(View.VISIBLE);
+
+            }else {
+                findViewById(R.id.settings_radioGroup).setVisibility(View.INVISIBLE);
+                findViewById(R.id.settings_chet_on_toggleButton).setVisibility(View.INVISIBLE);
+                findViewById(R.id.settings_spinner).setVisibility(View.INVISIBLE);
+            }
+        });
+        //endregion
 
         ssr_btn.setOnClickListener(view -> {
             switch (_gameState) {

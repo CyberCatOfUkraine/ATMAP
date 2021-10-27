@@ -20,4 +20,9 @@
     <string name="correct_answer_number">Правильних відповідей: </string>
     <string name="time_left">Часу залишилося: </string>
     <string name="seconds">с.</string>
+    <string name="cheat_on">Всі відповіді правильні</string>
+    <string name="cheat_off">Основний режим</string>
+    <string name="minute">Хвилина</string>
+    <string name="two_minute">Дві хвилини</string>
+    <string name="show_settings">Відобразити налаштування</string>
 </resources>
