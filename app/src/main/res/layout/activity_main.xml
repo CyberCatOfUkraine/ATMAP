@@ -114,49 +114,10 @@
             />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/settings_visibility_checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/show_settings" />
-
-    <RadioGroup
-        android:id="@+id/settings_radioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/minute_radioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/minute" />
-
-        <RadioButton
-            android:id="@+id/two_minute_radioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/two_minute"
-            tools:text="@string/two_minute" />
-
-    </RadioGroup>
-
-    <ToggleButton
-        android:id="@+id/settings_chet_on_toggleButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cheat_on"
-        android:textOff="@string/cheat_off"
-        android:textOn="@string/cheat_on" />
-
-    <Spinner
-        android:id="@+id/settings_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="64dp" />
 
 </LinearLayout>

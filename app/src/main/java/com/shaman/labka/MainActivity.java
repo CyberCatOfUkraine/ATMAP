@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private short _timeLeft;                        ///Лічильник кількості часу що лишився
     private  int _countOfAttempt;                   ///Лічильник кількості спроб
 
-    //region LR5-6 додаткові налаштування
-    private boolean show_settings=true;
-    private RadioGroup settingsRadioGroup;
-    //endregion
     public MainActivity() {
         _worker = new ColorWorker();
         _currentColor = _worker.GetCurrentColor();
@@ -56,32 +52,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _questTextView = findViewById(R.id.quest_textView);
-        _correctAnswerTextView = findViewById(R.id.correct_answer_textView);
-        _timeLeftTextView = findViewById(R.id.time_left_textView);
 
-        Button ssr_btn = findViewById(R.id.btn_start_stop_reset);
-        Button btn_yes = findViewById(R.id.btn_yes);
-        Button btn_no = findViewById(R.id.btn_no);
-
-
-        //region LR5-6 додаткові налаштування
-        Button settings_visibility_CheckBtn=findViewById(R.id.settings_visibility_checkBox);
-        settings_visibility_CheckBtn.setOnClickListener(view -> {
-            show_settings=!show_settings;
-
-            if (show_settings){
-                findViewById(R.id.settings_radioGroup).setVisibility(View.VISIBLE);
-                findViewById(R.id.settings_chet_on_toggleButton).setVisibility(View.VISIBLE);
-                findViewById(R.id.settings_spinner).setVisibility(View.VISIBLE);
-
-            }else {
-                findViewById(R.id.settings_radioGroup).setVisibility(View.INVISIBLE);
-                findViewById(R.id.settings_chet_on_toggleButton).setVisibility(View.INVISIBLE);
-                findViewById(R.id.settings_spinner).setVisibility(View.INVISIBLE);
-            }
-        });
-        //endregion
+        _questTextView          = findViewById(R.id.quest_textView);
+        _correctAnswerTextView  = findViewById(R.id.correct_answer_textView);
+        _timeLeftTextView       = findViewById(R.id.time_left_textView);
+        Button ssr_btn          = findViewById(R.id.btn_start_stop_reset);
+        Button btn_yes          = findViewById(R.id.btn_yes);
+        Button btn_no           = findViewById(R.id.btn_no);
 
         ssr_btn.setOnClickListener(view -> {
             switch (_gameState) {
@@ -168,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
         _correctAnswerTextView.setText(String.format("%s %s", getString(R.string.correct_answer_number), _rightAnswerNumber));
     }
+
 
     ///Оновляє кольор і його назву та зберігає в змінній поточного кольору
     private void UpdateColorAndColorName(Tuple<Integer, Integer> color) {
