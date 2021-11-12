@@ -15,16 +15,20 @@ package com.shaman.labka;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.shaman.labka.Collections.Tuple;
+import com.shaman.labka.Models.State;
+import com.shaman.labka.Workers.ColorWorker;
+
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
+///Додаток логічна  гра  на  визначення  співпадіння  кольору тексту  та  назви  кольору.
+///Генерація   випадковим   чином   кольорів   та підрахунок правильних  відповідей  впродовж  1  хвилини та  вивід  результатів  роботи програми
 public class MainActivity extends AppCompatActivity {
     private final ColorWorker _worker;              ///Доступ до списку кольорів та його ініціалізація
     private TextView _questTextView;                ///Отримує поточний кольор та його назву

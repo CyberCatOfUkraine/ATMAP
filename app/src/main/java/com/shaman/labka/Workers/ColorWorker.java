@@ -1,4 +1,8 @@
-package com.shaman.labka;
+package com.shaman.labka.Workers;
+
+import com.shaman.labka.Collections.Dictionary;
+import com.shaman.labka.R;
+import com.shaman.labka.Collections.Tuple;
 
 public class ColorWorker {
 

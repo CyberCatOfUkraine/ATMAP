@@ -1,4 +1,4 @@
-package com.shaman.labka;
+package com.shaman.labka.Collections;
 
 public class Tuple<T,X> {
     public T colorID;
