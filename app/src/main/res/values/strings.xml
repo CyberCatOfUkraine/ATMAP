@@ -24,5 +24,16 @@
     <string name="cheat_off">Основний режим</string>
     <string name="minute">Хвилина</string>
     <string name="two_minute">Дві хвилини</string>
-    <string name="show_settings">Відобразити налаштування</string>
+    <string name="settings">Налаштування</string>
+    <string name="user_not_registered">Користувач не зареєстрований</string>
+    <string name="registration">Реєстрація</string>
+    <string name="start_game">Почати гру</string>
+    <string name="statistic">Статистика</string>
+    <string name="greetings_p1">Вітаємо</string>
+    <string name="greetings_p2">!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fast_game_without_statistic">Швидка гра</string>
+    <string name="main_page">На головну</string>
+
 </resources>

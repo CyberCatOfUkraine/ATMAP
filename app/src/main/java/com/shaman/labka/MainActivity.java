@@ -13,12 +13,15 @@
 package com.shaman.labka;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.shaman.labka.Collections.Tuple;
 import com.shaman.labka.Models.State;
@@ -26,7 +29,7 @@ import com.shaman.labka.Workers.ColorWorker;
 
 import java.util.Random;
 import java.util.Timer;
-import java.util.TimerTask;
+
 ///Додаток логічна  гра  на  визначення  співпадіння  кольору тексту  та  назви  кольору.
 ///Генерація   випадковим   чином   кольорів   та підрахунок правильних  відповідей  впродовж  1  хвилини та  вивід  результатів  роботи програми
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     short _rightAnswerNumber;                       ///Правильна кількість відповідей
 
     private Timer _mTimer;                          ///Таймер
-    private MyTimerTask mMyTimerTask;               ///Завдання для таймеру
+    //private MyTimerTask mMyTimerTask;               ///Завдання для таймеру
     private short _timeLeft;                        ///Лічильник кількості часу що лишився
     private  int _countOfAttempt;                   ///Лічильник кількості спроб
 
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+/*
         _questTextView          = findViewById(R.id.quest_textView);
         _correctAnswerTextView  = findViewById(R.id.correct_answer_textView);
         _timeLeftTextView       = findViewById(R.id.time_left_textView);
@@ -141,7 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
                 UpdateColorAndColorName(ReturnRandomizeColor());
             }
-        });
+        });*/
+    }
+    private void loadFragment(Fragment fragment) {
+// create a FragmentManager
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, fragment).commit();
     }
     private void UpdateAnswerTextView(boolean increase) {
         if (increase)
@@ -150,6 +160,28 @@ public class MainActivity extends AppCompatActivity {
         _correctAnswerTextView.setText(String.format("%s %s", getString(R.string.correct_answer_number), _rightAnswerNumber));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.action_settings){
+            loadFragment(SettingsFragment.newInstance("",""));
+
+        }
+        if(item.getItemId()==R.id.action_statistic){
+            loadFragment(StatisticFragment.newInstance("",""));
+
+        }
+        if(item.getItemId()==R.id.action_go_to_main){
+            loadFragment(MainMenuFragment.newInstance("",""));
+        }
+        ShowToast("Вибрав"+item.getTitle()+" і щас іпешся з цим а міг би вибрать в армію а потім прогером, вже мідом був би");
+        return super.onOptionsItemSelected(item);
+    }
 
     ///Оновляє кольор і його назву та зберігає в змінній поточного кольору
     private void UpdateColorAndColorName(Tuple<Integer, Integer> color) {
@@ -170,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         Integer colorName = _worker.getValueByKey(_worker.getKeyAt(new Random().nextInt(_worker.size())));
         return new Tuple<>(color, colorName);
     }
-
+/*
     class MyTimerTask extends TimerTask {
 
         @Override
@@ -194,5 +226,5 @@ public class MainActivity extends AppCompatActivity {
 
             });
         }
-}
+}*/
 }

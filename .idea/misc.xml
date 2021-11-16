@@ -5,9 +5,18 @@
       <map>
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.4572310405643739" />
         <entry key="app/src/main/res/layout-land/activity_main_land.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout-port/activity_main.xml" value="0.48203125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_new_user_registration.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.5401041666666667" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.81015625" />
+        <entry key="app/src/main/res/layout/fragment_fast_game.xml" value="0.81015625" />
+        <entry key="app/src/main/res/layout/fragment_game.xml" value="0.81015625" />
+        <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.5949855351976856" />
+        <entry key="app/src/main/res/layout/fragment_new_user_registration.xml" value="0.81015625" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2312593703148426" />
+        <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.2312593703148426" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.48203125" />
       </map>
     </option>
   </component>
