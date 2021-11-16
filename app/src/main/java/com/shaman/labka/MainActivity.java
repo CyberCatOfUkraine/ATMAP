@@ -20,12 +20,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.orm.SchemaGenerator;
+import com.orm.SugarContext;
+import com.orm.SugarDb;
 import com.shaman.labka.Collections.Tuple;
-import com.shaman.labka.Models.State;
+import com.shaman.labka.OrmModels.Settings;
 import com.shaman.labka.Workers.ColorWorker;
+import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.SettingsWorker;
 
 import java.util.Random;
 import java.util.Timer;
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView _correctAnswerTextView;        ///Отримує кількість правильних відповідей
     private TextView _timeLeftTextView;             ///Отримує час що лишився
     private Tuple<Integer, Integer> _currentColor;  ///Поточний кольор та назва кольору
-    private State _gameState;                       ///Параметр стану програми
+    //private State _gameState;                       ///Параметр стану програми
 
     boolean _gameStarted;                           ///Гра почата
     short _rightAnswerNumber;                       ///Правильна кількість відповідей
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public MainActivity() {
         _worker = new ColorWorker();
         _currentColor = _worker.GetCurrentColor();
-        _gameState = State.Started;
+        //_gameState = State.Started;
         _gameStarted = false;
     }
 
@@ -60,7 +63,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentWorker.SetMainActivity(this);
 
+        SchemaGenerator schemaGenerator = new SchemaGenerator(this);
+        schemaGenerator.createDatabase(new SugarDb(this).getDB());
+        SugarContext.init(this);
+
+        Settings settings=new SettingsWorker().Get();
+        if (settings==null||settings.UserName==null){
+            FragmentWorker.SetFragment(NotRegistredFragment.newInstance("",""));
+        }else {
+            FragmentWorker.SetFragment(MainMenuFragment.newInstance("",""));
+        }
 /*
         _questTextView          = findViewById(R.id.quest_textView);
         _correctAnswerTextView  = findViewById(R.id.correct_answer_textView);
@@ -148,10 +162,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
     }
+
     private void loadFragment(Fragment fragment) {
-// create a FragmentManager
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, fragment).commit();
+        FragmentWorker.SetFragment(fragment);
     }
     private void UpdateAnswerTextView(boolean increase) {
         if (increase)
@@ -179,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.action_go_to_main){
             loadFragment(MainMenuFragment.newInstance("",""));
         }
-        ShowToast("Вибрав"+item.getTitle()+" і щас іпешся з цим а міг би вибрать в армію а потім прогером, вже мідом був би");
         return super.onOptionsItemSelected(item);
     }
 

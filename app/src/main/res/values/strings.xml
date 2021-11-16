@@ -36,4 +36,8 @@
     <string name="fast_game_without_statistic">Швидка гра</string>
     <string name="main_page">На головну</string>
 
+    <string name="submit">Підтвердити</string>
+    <string name="name">Імʼя</string>
+    <string name="email">E-mail</string>
+
 </resources>

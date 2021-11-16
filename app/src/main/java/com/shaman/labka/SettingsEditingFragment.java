@@ -1,4 +1,4 @@
-package com.shaman.labka.Workers;
+package com.shaman.labka;
 
 import android.os.Bundle;
 
