@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.SettingsWorker;
 import com.shaman.labka.Workers.ToastWorker;
 
 /**
@@ -76,10 +77,23 @@ public class SettingsEditingFragment extends Fragment {
 
         Button submit_btn=getView().findViewById(R.id.edit_settings_submit_btn);
         submit_btn.setOnClickListener(v->{
-            if (userName.getText().toString()==""){
-                ToastWorker.ShowToast("");
+
+            if (userName.getText().toString().length()==0&&email.getText().toString().length()==0){
+                ToastWorker.ShowToast("Відсутнє і'мя користувача та Email !");
                 return;
             }
+            else  if (userName.getText().toString().length()==0){
+                ToastWorker.ShowToast("Відсутнє і'мя користувача !");
+                return;
+            }else if (email.getText().toString().length()==0){
+                ToastWorker.ShowToast("Відсутній email користувача !");
+                return;
+            }
+
+            SettingsWorker.ReplaceEmail(email.getText().toString());
+            SettingsWorker.ReplaceUserName(userName.getText().toString());
+            ToastWorker.ShowToast("Збережено!");
+            FragmentWorker.setFragment(MainMenuFragment.newInstance("",""));
         });
     }
 

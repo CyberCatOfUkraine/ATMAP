@@ -83,6 +83,7 @@
         android:id="@+id/edit_settings_email_editText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

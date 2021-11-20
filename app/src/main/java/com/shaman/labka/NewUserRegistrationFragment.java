@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.shaman.labka.OrmModels.Settings;
 import com.shaman.labka.Workers.FragmentWorker;
 import com.shaman.labka.Workers.SettingsWorker;
+import com.shaman.labka.Workers.ToastWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,9 +71,20 @@ public class NewUserRegistrationFragment extends Fragment {
         EditText email=getView().findViewById(R.id.createUserEmailEditText);
         Button submit=getView().findViewById(R.id.registration_btn);
         submit.setOnClickListener(v -> {
-            SettingsWorker settingsWorker= new SettingsWorker();
-            ///TODO: Додати перевірку на пусті рядки коли буде час
-            settingsWorker.Save(new Settings(userName.getText().toString(),email.getText().toString()));
+
+            if (userName.getText().toString().length()==0&&email.getText().toString().length()==0){
+                ToastWorker.ShowToast("Відсутнє і'мя користувача та Email !");
+                return;
+            }
+            else  if (userName.getText().toString().length()==0){
+                ToastWorker.ShowToast("Відсутнє і'мя користувача !");
+                return;
+            }else if (email.getText().toString().length()==0){
+                ToastWorker.ShowToast("Відсутній email користувача !");
+                return;
+            }
+            SettingsWorker.Save(new Settings(userName.getText().toString(),email.getText().toString()));
+            ToastWorker.ShowToast("Збережено!");
 
 
             FragmentWorker.setFragment(MainMenuFragment.newInstance("",""));
