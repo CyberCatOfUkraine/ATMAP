@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     //private MyTimerTask mMyTimerTask;               ///Завдання для таймеру
     private short _timeLeft;                        ///Лічильник кількості часу що лишився
     private  int _countOfAttempt;                   ///Лічильник кількості спроб
-
+    private String _fragmentKey="key";
+    private static boolean _firstLaunch=true;
     public MainActivity() {
         _worker = new ColorWorker();
         _currentColor = _worker.GetCurrentColor();
@@ -58,23 +60,28 @@ public class MainActivity extends AppCompatActivity {
         _gameStarted = false;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentWorker.SetMainActivity(this);
+        FragmentWorker.setMainActivity(this);
 
         SchemaGenerator schemaGenerator = new SchemaGenerator(this);
         schemaGenerator.createDatabase(new SugarDb(this).getDB());
         SugarContext.init(this);
 
-        Settings settings=new SettingsWorker().Get();
-        if (settings==null||settings.UserName==null){
-            FragmentWorker.SetFragment(NotRegistredFragment.newInstance("",""));
-        }else {
-            FragmentWorker.SetFragment(MainMenuFragment.newInstance("",""));
+        if (_firstLaunch){
+            Settings settings=new SettingsWorker().Get();
+            if (settings==null||settings.UserName==null){
+                FragmentWorker.setFragment(NotRegistredFragment.newInstance("",""));
+            }else {
+                FragmentWorker.setFragment(MainMenuFragment.newInstance("",""));
+            }
+            _firstLaunch=false;
         }
+
 /*
         _questTextView          = findViewById(R.id.quest_textView);
         _correctAnswerTextView  = findViewById(R.id.correct_answer_textView);
@@ -164,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentWorker.SetFragment(fragment);
+        FragmentWorker.setFragment(fragment);
     }
     private void UpdateAnswerTextView(boolean increase) {
         if (increase)

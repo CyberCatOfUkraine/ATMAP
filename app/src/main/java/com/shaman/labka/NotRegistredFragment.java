@@ -61,8 +61,9 @@ public class NotRegistredFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         getView().findViewById(R.id.registration_btn).setOnClickListener(v -> {
-            FragmentWorker.SetFragment(NewUserRegistrationFragment.newInstance("",""));
+            FragmentWorker.setFragment(NewUserRegistrationFragment.newInstance("",""));
         });
         super.onViewCreated(view, savedInstanceState);
     }

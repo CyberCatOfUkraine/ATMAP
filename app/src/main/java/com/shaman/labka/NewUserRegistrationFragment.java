@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.shaman.labka.OrmModels.Settings;
+import com.shaman.labka.Workers.FragmentWorker;
 import com.shaman.labka.Workers.SettingsWorker;
 
 /**
@@ -72,7 +73,11 @@ public class NewUserRegistrationFragment extends Fragment {
             SettingsWorker settingsWorker= new SettingsWorker();
             ///TODO: Додати перевірку на пусті рядки коли буде час
             settingsWorker.Save(new Settings(userName.getText().toString(),email.getText().toString()));
+
+
+            FragmentWorker.setFragment(MainMenuFragment.newInstance("",""));
         });
+
         super.onViewCreated(view, savedInstanceState);
     }
 

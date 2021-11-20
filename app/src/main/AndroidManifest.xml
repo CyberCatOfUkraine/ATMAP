@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Labka"
-
         android:name="com.orm.SugarApp" >  <!--Use this attribute verbatim-->
         <meta-data android:name="DATABASE" android:value="example.db" />
         <meta-data android:name="VERSION" android:value="1" />
@@ -17,7 +16,8 @@
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.shaman.labka" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
