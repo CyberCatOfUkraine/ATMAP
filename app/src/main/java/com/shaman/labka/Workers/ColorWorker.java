@@ -4,6 +4,8 @@ import com.shaman.labka.Collections.Dictionary;
 import com.shaman.labka.R;
 import com.shaman.labka.Collections.Tuple;
 
+import java.util.Random;
+
 public class ColorWorker {
 
     private Dictionary<Integer, Integer> _Colors;
@@ -42,5 +44,11 @@ public class ColorWorker {
 
     public int size() {
         return _Colors.size();
+    }
+
+    public Tuple<Integer, Integer> ReturnRandomizeColor() {
+        Integer color = getKeyAt(new Random().nextInt(size()));
+        Integer colorName = getValueByKey(getKeyAt(new Random().nextInt(size())));
+        return new Tuple<>(color, colorName);
     }
 }

@@ -83,7 +83,7 @@ public class NewUserRegistrationFragment extends Fragment {
                 ToastWorker.ShowToast("Відсутній email користувача !");
                 return;
             }
-            SettingsWorker.Save(new Settings(userName.getText().toString(),email.getText().toString()));
+            SettingsWorker.Save(new Settings(userName.getText().toString(),email.getText().toString(),0));
             ToastWorker.ShowToast("Збережено!");
 
 

@@ -40,5 +40,6 @@
     <string name="name">Імʼя</string>
     <string name="email">E-mail</string>
     <string name="change_settings">Змінити налаштування</string>
+    <string name="finish_game">Завершити гру</string>
 
 </resources>

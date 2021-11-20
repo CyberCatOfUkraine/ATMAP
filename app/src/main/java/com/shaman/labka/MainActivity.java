@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.orm.SchemaGenerator;
 import com.orm.SugarContext;
 import com.orm.SugarDb;
+import com.shaman.labka.Crutches.MainActivityExample;
 import com.shaman.labka.OrmModels.Settings;
 import com.shaman.labka.Workers.FragmentWorker;
 import com.shaman.labka.Workers.SettingsWorker;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         ToastWorker.Initialize(this);
         //endregion
 
+        //region Створення костилів
+        MainActivityExample.SetActivity(this);
+        //endregion
         //region DB initializing
         SchemaGenerator schemaGenerator = new SchemaGenerator(this);
         schemaGenerator.createDatabase(new SugarDb(this).getDB());

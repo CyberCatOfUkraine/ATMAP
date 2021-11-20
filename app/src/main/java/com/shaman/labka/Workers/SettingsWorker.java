@@ -17,6 +17,11 @@ public class SettingsWorker {
         settings.UserName=userName;
         settings.save();
     }
+    public static void UpdateHighScore(int highScore){
+        Settings settings=Settings.findById(Settings.class,1);
+        settings.HighScore=highScore;
+        settings.save();
+    }
     ///Якщо прилітає NULL то таблиця не створена
     public static Settings Get(){
         return Settings.findById(Settings.class,1);
