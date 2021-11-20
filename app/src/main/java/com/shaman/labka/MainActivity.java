@@ -25,6 +25,7 @@ import com.orm.SugarDb;
 import com.shaman.labka.OrmModels.Settings;
 import com.shaman.labka.Workers.FragmentWorker;
 import com.shaman.labka.Workers.SettingsWorker;
+import com.shaman.labka.Workers.ToastWorker;
 
 ///Додаток логічна  гра  на  визначення  співпадіння  кольору тексту  та  назви  кольору.
 ///Генерація   випадковим   чином   кольорів   та підрахунок правильних  відповідей  впродовж  1  хвилини та  вивід  результатів  роботи програми
@@ -37,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //region FragmentWorker initializing
+        //region Workers initializing
         FragmentWorker.setMainActivity(this);
+        ToastWorker.Initialize(this);
         //endregion
 
         //region DB initializing

@@ -2,13 +2,19 @@ package com.shaman.labka;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.shaman.labka.R;
+import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.ToastWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +62,28 @@ public class SettingsEditingFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button to_main_page_bn = getView().findViewById(R.id.edit_settings_go_main_page_btn);
+        to_main_page_bn.setOnClickListener(v -> {
+            FragmentWorker.setFragment(MainMenuFragment.newInstance("",""));
+        });
+        EditText userName=getView().findViewById(R.id.edit_settings_username_editText);
+        EditText email=getView().findViewById(R.id.edit_settings_email_editText);
+
+        Button submit_btn=getView().findViewById(R.id.edit_settings_submit_btn);
+        submit_btn.setOnClickListener(v->{
+            if (userName.getText().toString()==""){
+                ToastWorker.ShowToast("");
+                return;
+            }
+        });
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
