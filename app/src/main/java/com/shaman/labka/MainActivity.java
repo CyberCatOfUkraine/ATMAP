@@ -15,8 +15,6 @@ package com.shaman.labka;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -24,14 +22,9 @@ import androidx.fragment.app.Fragment;
 import com.orm.SchemaGenerator;
 import com.orm.SugarContext;
 import com.orm.SugarDb;
-import com.shaman.labka.Collections.Tuple;
 import com.shaman.labka.OrmModels.Settings;
-import com.shaman.labka.Workers.ColorWorker;
 import com.shaman.labka.Workers.FragmentWorker;
 import com.shaman.labka.Workers.SettingsWorker;
-
-import java.util.Random;
-import java.util.Timer;
 
 ///Додаток логічна  гра  на  визначення  співпадіння  кольору тексту  та  назви  кольору.
 ///Генерація   випадковим   чином   кольорів   та підрахунок правильних  відповідей  впродовж  1  хвилини та  вивід  результатів  роботи програми
