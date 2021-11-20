@@ -2,11 +2,18 @@ package com.shaman.labka;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.shaman.labka.OrmModels.Settings;
+import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.SettingsWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +59,31 @@ public class MainMenuFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView textView= getView().findViewById(R.id.greetings_textView);
+        Settings settings=new SettingsWorker().Get();
+        if (settings!=null&&settings.UserName!=null){
+            textView.setText(String.format("%s %s %s", getString(R.string.greetings_p1), settings.UserName, getString(R.string.greetings_p2)));
+        }
+        getView().findViewById(R.id.menu_settings_btn).setOnClickListener(v -> {
+            FragmentWorker.setFragment(SettingsFragment.newInstance("",""));
+        });
+        getView().findViewById(R.id.menu_statistick_btn).setOnClickListener(v -> {
+            FragmentWorker.setFragment(StatisticFragment.newInstance("",""));
+        });
+        getView().findViewById(R.id.menu_fast_game_btn).setOnClickListener(v -> {
+            FragmentWorker.setFragment(FastGameFragment.newInstance("",""));
+        });
+        getView().findViewById(R.id.menu_start_game_btn).setOnClickListener(v -> {
+            FragmentWorker.setFragment(GameFragment.newInstance("",""));
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
