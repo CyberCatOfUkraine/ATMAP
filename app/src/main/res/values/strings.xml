@@ -39,5 +39,6 @@
     <string name="submit">Підтвердити</string>
     <string name="name">Імʼя</string>
     <string name="email">E-mail</string>
+    <string name="change_settings">Змінити налаштування</string>
 
 </resources>

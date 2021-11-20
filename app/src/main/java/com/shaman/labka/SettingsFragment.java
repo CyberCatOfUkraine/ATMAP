@@ -2,11 +2,19 @@ package com.shaman.labka;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.shaman.labka.OrmModels.Settings;
+import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.SettingsWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +61,27 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Settings settings=new SettingsWorker().Get();
+
+        TextView username= getView().findViewById(R.id.settings_username_textView);
+        username.setText(settings.UserName);
+
+        TextView email= getView().findViewById(R.id.settings_email_textView);
+        email.setText(settings.Email);
+
+        Button to_main_page_bn = getView().findViewById(R.id.settings_go_main_page_btn);
+        to_main_page_bn.setOnClickListener(v -> {
+            FragmentWorker.setFragment(MainMenuFragment.newInstance("",""));
+        });
+        Button changeSettings=getView().findViewById(R.id.settings_change_settings_btn);
+        changeSettings.setOnClickListener(v->{
+            FragmentWorker.setFragment(SettingsEditingFragment.newInstance("",""));
+        });
     }
 
     @Override
