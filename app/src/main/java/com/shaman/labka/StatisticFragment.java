@@ -1,5 +1,6 @@
 package com.shaman.labka;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -84,6 +85,19 @@ public class StatisticFragment extends Fragment {
         Button go_home=getView().findViewById(R.id.stat_go_main_btn);
         go_home.setOnClickListener(v -> {
             FragmentWorker.setFragment(MainMenuFragment.newInstance("", ""));
+        });
+
+        Button send_on_email=getView().findViewById(R.id.stat_send_on_email_btn);
+        send_on_email.setOnClickListener(v -> {
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{settings.Email});
+            email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+            email.putExtra(Intent.EXTRA_TEXT, "Вас вітає спам розсилка міста Бровари, на даний момент тримайте наступне повідомлення: Користувач "+settings.UserName+" набрав "+settings.HighScore+" очок в "+getString(R.string.app_name));
+
+//need this to prompts email client only
+            email.setType("message/rfc822");
+
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
         });
     }
 }
