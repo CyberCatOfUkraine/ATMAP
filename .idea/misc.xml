@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout-land/fragment_new_user_registration.xml" value="0.75" />
         <entry key="app/src/main/res/layout-land/fragment_not_registred.xml" value="0.26851851851851855" />
         <entry key="app/src/main/res/layout-land/fragment_settings.xml" value="0.5" />
+        <entry key="app/src/main/res/layout-land/fragment_statistic.xml" value="0.4572310405643739" />
         <entry key="app/src/main/res/layout-port/activity_main.xml" value="0.48203125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_new_user_registration.xml" value="0.5" />
@@ -22,7 +23,7 @@
         <entry key="app/src/main/res/layout/fragment_not_registred.xml" value="0.48203125" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_settings_editing.xml" value="0.48203125" />
-        <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.2312593703148426" />
+        <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.5" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.48203125" />
       </map>
     </option>

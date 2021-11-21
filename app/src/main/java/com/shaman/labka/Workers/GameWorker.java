@@ -103,7 +103,7 @@ public class GameWorker {
 
     }
     private void SaveStatistic() {
-        if (SettingsWorker.Get().HighScore < (_countOfAttempt - _rightAnswerNumber))
+        if (SettingsWorker.Get().HighScore<(_rightAnswerNumber- (_countOfAttempt - _rightAnswerNumber)))
             SettingsWorker.UpdateHighScore(_rightAnswerNumber-(_countOfAttempt - _rightAnswerNumber));
 
     }

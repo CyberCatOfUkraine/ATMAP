@@ -41,5 +41,6 @@
     <string name="email">E-mail</string>
     <string name="change_settings">Змінити налаштування</string>
     <string name="finish_game">Завершити гру</string>
+    <string name="max_score">Рекорд</string>
 
 </resources>

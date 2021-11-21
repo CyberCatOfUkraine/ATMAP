@@ -2,11 +2,19 @@ package com.shaman.labka;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.shaman.labka.OrmModels.Settings;
+import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.SettingsWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +68,22 @@ public class StatisticFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_statistic, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView userName=getView().findViewById(R.id.stat_name_textView);
+        TextView score=getView().findViewById(R.id.stat_highscore_textView);
+
+        Settings settings= SettingsWorker.Get();
+        userName.setText(settings.UserName);
+        score.setText(String.valueOf(settings.HighScore));
+
+        Button go_home=getView().findViewById(R.id.stat_go_main_btn);
+        go_home.setOnClickListener(v -> {
+            FragmentWorker.setFragment(MainMenuFragment.newInstance("", ""));
+        });
     }
 }
