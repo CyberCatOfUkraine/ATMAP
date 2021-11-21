@@ -17,9 +17,11 @@ import com.shaman.labka.Collections.Tuple;
 import com.shaman.labka.Crutches.MainActivityExample;
 import com.shaman.labka.Workers.ColorWorker;
 import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.GameWorker;
 import com.shaman.labka.Workers.SettingsWorker;
 import com.shaman.labka.Workers.ToastWorker;
 
+import java.text.BreakIterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,23 +79,15 @@ public class GameFragment extends Fragment {
         }
     }
 
-    Button yes_btn;
-    Button no_btn;
-    Button finish_btn;
-    TextView colorTextAndNameTextView;
-    ProgressBar progressBar;
-    TextView correctAnswerTextView;
-    TextView timeLeftTextView;
-    private int _rightAnswerNumber;
-    private int _countOfAttempt;
-    private int _timeLeft = 60;
-    private int _timeMax = 60;
+    public Button yes_btn;
+    public Button no_btn;
+    public Button finish_btn;
+    public TextView colorTextAndNameTextView;
+    public ProgressBar progressBar;
+    public TextView correctAnswerTextView;
+    public TextView timeLeftTextView;
 
-    private Timer _mTimer;                          ///Таймер
-    private MyTimerTask mMyTimerTask;
-    private Tuple<Integer, Integer> _currentColor;
-    private ColorWorker _colorWorker;
-
+    public boolean itsLoaded=false;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -105,108 +99,26 @@ public class GameFragment extends Fragment {
         correctAnswerTextView = getView().findViewById(R.id.game_correct_answers_textView);
         progressBar = getView().findViewById(R.id.game_progressBar);
 
-
+        GameWorker.SetGameFragment(this);
+        GameWorker.GetInstance().Start();
         finish_btn.setOnClickListener(v -> {
             this.onDestroy();
+            GameWorker.FullStop();
             FragmentWorker.setFragment(MainMenuFragment.newInstance("", ""));
-            _timeLeft=60;///WARN!
-            _mTimer.cancel();
         });
 
-        _colorWorker = new ColorWorker();
-
-            _currentColor = _colorWorker.ReturnRandomizeColor();
-            UpdateColorAndColorName(_currentColor);
-
-        progressBar.setMax(_timeMax);
         yes_btn.setOnClickListener(v -> {
-            Integer val = _colorWorker.getValueByKey(_currentColor.colorID);
-            UpdateAnswerTextView(val.equals(_currentColor.colorNameID));
-
-
-            UpdateColorAndColorName(_colorWorker.ReturnRandomizeColor());
-
+            GameWorker.GetInstance().YesBtnOnClick();
 
         });
         no_btn.setOnClickListener(v -> {
+            GameWorker.GetInstance().NoBtnOnClick();
 
-            Integer val = _colorWorker.getValueByKey(_currentColor.colorID);
-
-            UpdateAnswerTextView(!val.equals(_currentColor.colorNameID));
-
-            UpdateColorAndColorName(_colorWorker.ReturnRandomizeColor());
         });
-
-
-
-        //region Ініціалізація таймеру
-        if (_mTimer != null) {
-            _mTimer.cancel();
-        }
-
-        // re-schedule timer here
-        // otherwise, IllegalStateException of
-        // "TimerTask is scheduled already"
-        // will be thrown
-        _mTimer = new Timer();
-        mMyTimerTask = new MyTimerTask();
-        _mTimer.schedule(mMyTimerTask, 1000, 1000);
+        itsLoaded=true;
     }
 
-    private void performEndGame() {
-        yes_btn.setVisibility(View.INVISIBLE);
-        no_btn.setVisibility(View.INVISIBLE);
-        SaveStatistic();
-    }
 
-    private void SaveStatistic() {
-        if (SettingsWorker.Get().HighScore < (_countOfAttempt - _rightAnswerNumber))
-            SettingsWorker.UpdateHighScore((_countOfAttempt - _rightAnswerNumber));
-
-    }
-
-    private void UpdateAnswerTextView(boolean increase) {
-        if (increase)
-            _rightAnswerNumber++;
-
-        correctAnswerTextView.setText(String.format("%s %s", getString(R.string.correct_answer_number), _rightAnswerNumber));
-    }
-
-    ///Оновляє кольор і його назву та зберігає в змінній поточного кольору
-    private void UpdateColorAndColorName(Tuple<Integer, Integer> color) {
-        _countOfAttempt++;
-        _currentColor = color;
-        colorTextAndNameTextView.setText(getResources().getString(_currentColor.colorNameID));
-        colorTextAndNameTextView.setTextColor(getResources().getColor(_currentColor.colorID));
-    }
-
-    class MyTimerTask extends TimerTask {
-
-        @Override
-        public void run() {
-            MainActivityExample.Get().runOnUiThread(() -> {
-                _timeLeft--;
-                if (_timeLeft < 0)
-                    return;
-                if (_timeLeft == 0) {
-                    correctAnswerTextView.setText(String.format("%s %s %s %s", getString(R.string.correct_answer_number), _rightAnswerNumber, " з ", _countOfAttempt));
-                    ToastWorker.ShowToast("Час вийшов, правильних відповідей: " + _rightAnswerNumber + " з " + _countOfAttempt);
-                    performEndGame();
-                }
-
-                try {
-                    String s = getResources().getString(R.string.time_left) + _timeLeft;
-                    timeLeftTextView.setText(s);
-                    progressBar.setProgress(_timeMax - _timeLeft);
-                } catch (Exception ignored) {
-
-                }
-
-            });
-
-
-        }
-    }
 
 
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.shaman.labka.OrmModels.Settings;
 import com.shaman.labka.Workers.FragmentWorker;
+import com.shaman.labka.Workers.GameWorker;
 import com.shaman.labka.Workers.SettingsWorker;
 
 /**
@@ -80,7 +81,10 @@ public class MainMenuFragment extends Fragment {
             FragmentWorker.setFragment(FastGameFragment.newInstance("",""));
         });
         getView().findViewById(R.id.menu_start_game_btn).setOnClickListener(v -> {
-            FragmentWorker.setFragment(GameFragment.newInstance("",""));
+
+            GameFragment gameFragment=GameFragment.newInstance("","");
+            GameWorker.SetGameFragment(gameFragment);
+            FragmentWorker.setFragment(gameFragment);
         });
     }
 

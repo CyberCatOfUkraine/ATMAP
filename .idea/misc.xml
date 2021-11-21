@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.4572310405643739" />
         <entry key="app/src/main/res/layout-land/activity_main_land.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout-land/fragment_game.xml" value="0.5" />
         <entry key="app/src/main/res/layout-land/fragment_main_menu.xml" value="0.5" />
         <entry key="app/src/main/res/layout-land/fragment_new_user_registration.xml" value="0.75" />
         <entry key="app/src/main/res/layout-land/fragment_not_registred.xml" value="0.26851851851851855" />
