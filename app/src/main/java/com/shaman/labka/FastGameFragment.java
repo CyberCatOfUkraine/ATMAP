@@ -2,11 +2,20 @@ package com.shaman.labka;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.shaman.labka.Collections.Tuple;
+import com.shaman.labka.Crutches.MainActivityExample;
+import com.shaman.labka.Workers.ColorWorker;
+import com.shaman.labka.Workers.FragmentWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +64,88 @@ public class FastGameFragment extends Fragment {
         }
     }
 
+    public Button yes_btn;
+    public Button no_btn;
+    public Button finish_btn;
+    public TextView colorTextAndNameTextView;
+    public TextView correctAnswerTextView;
+
+    private static Tuple<Integer, Integer> _currentColor;
+    private static ColorWorker _colorWorker;
+
+    private static int _rightAnswerNumber = 0;
+
+    private static boolean _gameStarted =false;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        yes_btn = getView().findViewById(R.id.fast_game_yes_btn);
+        no_btn = getView().findViewById(R.id.fast_game_no_btn);
+        finish_btn = getView().findViewById(R.id.fast_game_finish_btn);
+        colorTextAndNameTextView = getView().findViewById(R.id.fast_game_color_text_textView);
+        correctAnswerTextView = getView().findViewById(R.id.fast_game_correct_answers_textView);
+
+
+        if (!_gameStarted){
+
+            _rightAnswerNumber = 0;
+
+            _colorWorker = new ColorWorker();
+
+            _currentColor = _colorWorker.ReturnRandomizeColor();
+            UpdateColorAndColorName(_currentColor);
+
+
+            correctAnswerTextView.setText(String.format("%s %s", MainActivityExample.Get().getString(R.string.correct_answer_number), 0));
+
+            _gameStarted=true;
+        }else {
+
+            colorTextAndNameTextView.setText(MainActivityExample.Get().getResources().getString(_currentColor.colorNameID));
+            colorTextAndNameTextView.setTextColor(MainActivityExample.Get().getResources().getColor(_currentColor.colorID));
+            correctAnswerTextView.setText(String.format("%s %s", MainActivityExample.Get().getString(R.string.correct_answer_number), _rightAnswerNumber));
+
+        }
+
+
+
+        finish_btn.setOnClickListener(v -> {
+            _gameStarted=false;
+            _rightAnswerNumber = 0;
+
+            FragmentWorker.setFragment(MainMenuFragment.newInstance("", ""));
+        });
+
+        yes_btn.setOnClickListener(v -> {
+            Integer val = _colorWorker.getValueByKey(_currentColor.colorID);
+
+            UpdateAnswerTextView(val.equals(_currentColor.colorNameID));
+
+            UpdateColorAndColorName(_colorWorker.ReturnRandomizeColor());
+
+        });
+        no_btn.setOnClickListener(v -> {
+            Integer val = _colorWorker.getValueByKey(_currentColor.colorID);
+
+            UpdateAnswerTextView(!val.equals(_currentColor.colorNameID));
+
+            UpdateColorAndColorName(_colorWorker.ReturnRandomizeColor());
+        });
+    }
+
+    private void UpdateColorAndColorName(Tuple<Integer, Integer> color) {
+        _currentColor = color;
+        colorTextAndNameTextView.setText(MainActivityExample.Get().getResources().getString(_currentColor.colorNameID));
+        colorTextAndNameTextView.setTextColor(MainActivityExample.Get().getResources().getColor(_currentColor.colorID));
+    }
+    private void UpdateAnswerTextView(boolean increase) {
+        if (increase)
+            _rightAnswerNumber++;
+
+        correctAnswerTextView.setText(String.format("%s %s",MainActivityExample.Get().getString(R.string.correct_answer_number), _rightAnswerNumber));
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
