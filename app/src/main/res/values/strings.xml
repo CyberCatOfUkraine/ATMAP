@@ -43,4 +43,5 @@
     <string name="finish_game">Завершити гру</string>
     <string name="max_score">Рекорд</string>
     <string name="send_on_email">Надіслати на E-mail</string>
+    <string name="lr_14_15">ЛР 14–15</string>
 </resources>

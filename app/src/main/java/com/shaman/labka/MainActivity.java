@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.action_go_to_main){
             loadFragment(MainMenuFragment.newInstance("",""));
         }
+        if(item.getItemId()==R.id.action_lr_14_15){
+            loadFragment(LR_14_15Fragment.newInstance("",""));
+        }
         return super.onOptionsItemSelected(item);
     }
 }
